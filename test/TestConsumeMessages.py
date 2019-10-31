@@ -20,11 +20,11 @@ from librocketmqclientpython import *
 
 import time
 import sys
+import os
 
 topic = 'test-topic-normal'
 topic_orderly = 'test-topic-normal-orderly'
-
-name_srv = '127.0.0.1:9876'
+name_srv = os.getenv('NAMESRV_ADDR','localhost:9876')
 tag = 'rmq-tag'
 consumer_group = 'test-consumer-group'
 consumer_group_orderly = 'test-topic-normal-orderly_group'

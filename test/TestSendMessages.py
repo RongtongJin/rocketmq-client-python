@@ -18,10 +18,11 @@
 import __init__
 from librocketmqclientpython import *
 import time
+import os
 
 topic = 'test-topic-normal'
 topic_orderly = 'test-topic-normal-orderly'
-name_srv = '127.0.0.1:9876'
+name_srv = os.getenv('NAMESRV_ADDR','localhost:9876')
 
 
 def init_producer():
