@@ -41,14 +41,14 @@ if [ $? -ne 0 ];then
     exit 1
 fi
 echo "Install boost static library...."
-sudo   ./b2 cflags="-fPIC" cxxflags="-fPIC -Wno-unused-local-typedefs -Wno-strict-aliasing" link=static \
+./b2 cflags="-fPIC" cxxflags="-fPIC -Wno-unused-local-typedefs -Wno-strict-aliasing" link=static \
        runtime-link=static --with-python  \
        -a install 
 if [ $? -ne 0 ];then
     exit 1
 fi
 echo "Install boost dynamic library....."
-sudo   ./b2 cflags="-fPIC" cxxflags="-fPIC -Wno-unused-local-typedefs -Wno-strict-aliasing" link=shared \
+./b2 cflags="-fPIC" cxxflags="-fPIC -Wno-unused-local-typedefs -Wno-strict-aliasing" link=shared \
        runtime-link=shared --with-python \
        -a install
 if [ $? -ne 0 ];then
