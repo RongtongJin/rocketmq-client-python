@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('rocketmq cluster start'){
+            steps {
+                sh 'docker run -d --name rmqnamesrv rocketmqinc/rocketmq:4.5.0 sh mqnamesrv'
+                sh 'docker run -d --name rmqbroker --link rmqnamesrv:namesrv -e "NAMESRV_ADDR=namesrv:9876" -e "JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.el7_7.x86_64/jre" rocketmqinc/rocketmq:4.5.0  sh mqbroker'
+                sh 'sleep 10'
+                sh 'docker exec rmqbroker sh ./mqadmin updateTopic -n namesrv:9876 -b localhost:10911 -t go_normal_test'
+            }
+        }
+        stage('Test'){
+            agent {
+                docker {
+
+                }
+            }
+            steps {
+                sh 'go test -v ./core ./test | tee tmp'
+                sh '$GOPATH/bin/go-junit-report < tmp > test_output.xml'
+                junit '*.xml'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'docker stop  `docker ps -aq --filter name=rmqbroker`'
+            sh 'docker rm  `docker ps -aq --filter name=rmqbroker`'
+            sh 'docker stop  `docker ps -aq --filter name=rmqnamesrv`'
+            sh 'docker rm  `docker ps -aq --filter name=rmqnamesrv`'
+        }
+    }
+}
