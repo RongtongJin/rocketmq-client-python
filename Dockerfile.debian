@@ -2,7 +2,7 @@ FROM python:2.7-buster
 
 RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
     apt update && \
-	apt install -y -f git gcc g++g autoconf cmake libtool wget libbz2-dev zlib1g-dev && \
+	apt install -y -f git gcc g++ autoconf cmake libtool wget libbz2-dev zlib1g-dev && \
 
 COPY . rocketmq-client-python
 
