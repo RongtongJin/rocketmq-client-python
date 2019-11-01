@@ -17,17 +17,19 @@
 # specific language governing permissions and limitations
 # under the License.
 import pytest
+import os
 from rocketmq.client import Producer, PushConsumer, PullConsumer
 
 
 # HACK: It's buggy, don't call it in test case for now
 del PushConsumer.__del__
 
+name_srv = os.getenv('NAMESRV_ADDR', 'localhost:9876')
 
 @pytest.fixture(scope='session')
 def producer():
     prod = Producer('testGroup')
-    prod.set_namesrv_addr('127.0.0.1:9876')
+    prod.set_namesrv_addr(name_srv)
     prod.start()
     yield prod
     prod.shutdown()
@@ -36,7 +38,7 @@ def producer():
 @pytest.fixture(scope='function')
 def push_consumer():
     consumer = PushConsumer('testGroup')
-    consumer.set_namesrv_addr('127.0.0.1:9876')
+    consumer.set_namesrv_addr(name_srv)
     yield consumer
     consumer.shutdown()
 
@@ -44,7 +46,7 @@ def push_consumer():
 @pytest.fixture(scope='function')
 def pull_consumer():
     consumer = PullConsumer('testGroup')
-    consumer.set_namesrv_addr('127.0.0.1:9876')
+    consumer.set_namesrv_addr(name_srv)
     consumer.start()
     yield consumer
     consumer.shutdown()
