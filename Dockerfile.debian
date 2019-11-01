@@ -16,7 +16,7 @@
 #
 FROM python:2.7-buster
 
-RUN yum install -y docker
+RUN apt install -y docker
 
 COPY . rocketmq-client-python
 
