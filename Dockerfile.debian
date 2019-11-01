@@ -16,24 +16,7 @@
 #
 FROM python:2.7-buster
 
-RUN apt update && apt install -y wget curl gcc libtool unzip automake autoconf bzip2 && ln -s `which cmake28` /usr/bin/cmake
-
-# Install zlib
-RUN curl -sqL https://zlib.net/zlib-1.2.11.tar.gz | tar -xz -C /tmp && \
-  cd /tmp/zlib-1.2.11/ && \
-  ./configure --prefix=/usr && \
-  make && \
-  make install && \
-  cd -  && \
-  rm -rf /tmp/zlib-1.2.11
-
-
-# install graalvm core
-
-RUN wget https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/debian/cgo/rocketmq_2.0.0_amd64.deb && \
-    dpkg -i rocketmq_2.0.0_amd64.deb
-
-RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+RUN yum install -y docker
 
 COPY . rocketmq-client-python
 
