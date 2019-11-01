@@ -16,7 +16,7 @@
 #
 FROM python:2.7-buster
 
-RUN apt update && apt install -y wget curl gcc libtool unzip automake autoconf bzip2-devel && ln -s `which cmake28` /usr/bin/cmake
+RUN apt update && apt install -y wget curl gcc libtool unzip automake autoconf bzip2 && ln -s `which cmake28` /usr/bin/cmake
 
 # Install zlib
 RUN curl -sqL https://zlib.net/zlib-1.2.11.tar.gz | tar -xz -C /tmp && \
