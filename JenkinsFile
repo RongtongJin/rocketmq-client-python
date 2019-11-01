@@ -9,10 +9,10 @@ pipeline {
                 sh 'docker exec rmqbroker sh ./mqadmin updateTopic -n namesrv:9876 -b localhost:10911 -t go_normal_test'
             }
         }
-        stage('Test'){
+        stage('CentOS 7 - Python 3'){
             agent {
-                docker {
-
+                dockerfile {
+                    args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
                 }
             }
             steps {
