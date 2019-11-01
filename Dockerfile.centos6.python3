@@ -14,9 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM python:2.7-buster
+FROM centos:6
 
-RUN apt install -y docker
+RUN yum -y groupinstall "Development tools" && \
+    yum -y install wget zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel && \
+
+RUN wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz && \
+    tar -xvJf Python-3.7.0.tar.xz && \
+    mkdir /usr/local/python3 && \
+    cd Python-3.7.0 && \
+    ./configure --prefix=/usr/local/python3 && \
+    make && make install && \
+    ln -s -f /usr/local/python3/bin/python3 /usr/bin/python && \
+    ln -s -f /usr/local/python3/bin/python3  /usr/bin/pip
+
+
+RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
 
 COPY . rocketmq-client-python
 
