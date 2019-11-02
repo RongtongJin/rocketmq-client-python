@@ -34,3 +34,6 @@ RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
 COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
+
+RUN python setup.py install && \
+    pip install pytest pytest-timeout pytest-cov
