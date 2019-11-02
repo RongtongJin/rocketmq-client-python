@@ -17,8 +17,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pytest --cov=rocketmq -v tests'
-                sh 'codecov'
+                sh 'pytest -v tests'
             }
         }
     }
