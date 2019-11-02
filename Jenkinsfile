@@ -12,7 +12,7 @@ pipeline {
         stage('Debian - Python 2'){
             agent {
                 dockerfile {
-                    filename 'Dockerfile.debian.python2'
+                    filename 'Dockerfile.debian.python3'
                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
                 }
             }
