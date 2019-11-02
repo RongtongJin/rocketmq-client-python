@@ -24,4 +24,3 @@ WORKDIR rocketmq-client-python
 
 RUN python setup.py install && \
     pip install pytest pytest-timeout pytest-cov codecov
-    
