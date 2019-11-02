@@ -17,8 +17,8 @@ pipeline {
                 }
             }
             steps {
-                pytest --cov=rocketmq -v tests
-                codecov
+                sh 'pytest --cov=rocketmq -v tests'
+                sh 'codecov'
             }
         }
     }
