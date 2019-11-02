@@ -13,7 +13,6 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile.debian.python2'
-                    label 'debian-python2'
                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
                 }
             }
