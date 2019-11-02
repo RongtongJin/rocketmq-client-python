@@ -26,7 +26,7 @@ RUN wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz && \
     ./configure --prefix=/usr/local/python3 && \
     make && make install && \
     ln -s -f /usr/local/python3/bin/python3 /usr/bin/python && \
-    ln -s -f /usr/local/python3/bin/pip  /usr/bin/pip && \
+    ln -s -f /usr/local/python3/bin/pip3  /usr/bin/pip && \
     cd ..
 
 
