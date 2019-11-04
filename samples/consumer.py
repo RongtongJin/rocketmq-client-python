@@ -19,6 +19,7 @@
 
 from rocketmq.client import PushConsumer, ConsumeStatus
 import time
+import os
 
 def callback(msg):
     print(msg.id, msg.body)

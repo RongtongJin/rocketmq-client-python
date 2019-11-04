@@ -26,12 +26,19 @@ name_srv = os.getenv('NAMESRV_ADDR', 'localhost:9876')
 
 @pytest.fixture(scope='session')
 def producer():
-    prod = Producer('testGroup', True)
+    prod = Producer('testGroup')
     prod.set_namesrv_addr(name_srv)
     prod.start()
     yield prod
     prod.shutdown()
 
+@pytest.fixture(scope='session')
+def orderly_producer():
+    prod = Producer('testGroup', True)
+    prod.set_namesrv_addr(name_srv)
+    prod.start()
+    yield prod
+    prod.shutdown()
 
 @pytest.fixture(scope='function')
 def push_consumer():

@@ -19,10 +19,12 @@
 from rocketmq.client import Producer, Message, TransactionMQProducer, TransactionStatus
 
 import time
+import os
 
 topic = 'TopicTest'
 gid = 'test'
-name_srv = '127.0.0.1:9876'
+
+name_srv = os.getenv('NAMESRV_ADDR', 'localhost:9876')
 
 
 def create_message():
