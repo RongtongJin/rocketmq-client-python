@@ -35,6 +35,32 @@ pipeline {
                 sh 'codecov'
             }
         }
+        stage('Centos7 - Python 2'){
+            agent {
+                dockerfile {
+                    filename 'Dockerfile.centos7.python2'
+                    args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
+                }
+            }
+            steps {
+                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
+                junit '*.xml'
+                sh 'codecov'
+            }
+        }
+        stage('Centos6 - Python 2'){
+            agent {
+                dockerfile {
+                    filename 'Dockerfile.centos6.python2'
+                    args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
+                }
+            }
+            steps {
+                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
+                junit '*.xml'
+                sh 'codecov'
+            }
+        }
     }
     post {
         always {
