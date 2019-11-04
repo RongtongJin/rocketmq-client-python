@@ -18,11 +18,13 @@
 # under the License.
 import time
 import threading
+import sys
 import os
 
 from rocketmq.client import Message, SendStatus, TransactionMQProducer, TransactionStatus
 
 name_srv = os.getenv('NAMESRV_ADDR', 'localhost:9876')
+PY_VERSION = sys.version_info[0]
 
 def test_producer_send_sync(producer):
     msg = Message('test')
@@ -32,53 +34,12 @@ def test_producer_send_sync(producer):
     ret = producer.send_sync(msg)
     assert ret.status == SendStatus.OK
 
-
-# def test_producer_send_async(producer):
-#     stop_event = threading.Event()
-#     errors = []
-#
-#     def on_success(result):
-#         stop_event.set()
-#         if not result.msg_id:
-#             errors.append(AssertionError('Producer send_async failed'))
-#
-#     def on_exception(exc):
-#         stop_event.set()
-#         errors.append(exc)
-#
-#     msg = Message('test')
-#     msg.set_keys('send_async')
-#     msg.set_tags('XXX')
-#     msg.set_body('XXXX')
-#     producer.send_async(msg, on_success, on_exception)
-#
-#     max_wait = 10
-#     wait_count = 0
-#     while not stop_event.is_set():
-#         if wait_count >= max_wait:
-#             stop_event.set()
-#             raise Exception('test timed-out')
-#         time.sleep(1)
-#         wait_count += 1
-#     if errors:
-#         raise errors[0]
-
-
 def test_producer_send_oneway(producer):
     msg = Message('test')
     msg.set_keys('send_oneway')
     msg.set_tags('XXX')
     msg.set_body('XXXX')
     producer.send_oneway(msg)
-
-
-# def test_producer_send_oneway_orderly(producer):
-#     msg = Message('test')
-#     msg.set_keys('send_oneway_orderly')
-#     msg.set_tags('XXX')
-#     msg.set_body('XXXX')
-#     producer.send_oneway_orderly(msg, 1)
-
 
 def test_producer_send_orderly_with_sharding_key(orderly_producer):
     msg = Message('test')
@@ -100,24 +61,23 @@ def test_producer_send_orderly(producer):
 
 def test_transaction_producer():
     stop_event = threading.Event()
-    msgId = None
+    msg_body = 'XXXX'
 
     def on_local_execute(msg, user_args):
-        msgId = msg.id.decode('utf-8')
         return TransactionStatus.UNKNOWN
 
     def on_check(msg):
         stop_event.set()
-        assert msg.id.decode('utf-8') == msgId
+        assert msg.body.decode('utf-8') == msg_body
         return TransactionStatus.COMMIT
 
-    producer = TransactionMQProducer('transactionTestGroup', on_check)
+    producer = TransactionMQProducer('transactionTestGroup' + str(PY_VERSION), on_check)
     producer.set_namesrv_addr(name_srv)
     producer.start()
     msg = Message('test')
-    msg.set_keys('send_orderly')
+    msg.set_keys('transaction')
     msg.set_tags('XXX')
-    msg.set_body('XXXX')
+    msg.set_body(msg_body)
     producer.send_message_in_transaction(msg, on_local_execute)
     while not stop_event.is_set():
         time.sleep(2)

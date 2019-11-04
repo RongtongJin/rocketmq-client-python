@@ -26,7 +26,7 @@ name_srv = os.getenv('NAMESRV_ADDR', 'localhost:9876')
 
 @pytest.fixture(scope='session')
 def producer():
-    prod = Producer('testGroup')
+    prod = Producer('producer_group')
     prod.set_namesrv_addr(name_srv)
     prod.start()
     yield prod
@@ -34,7 +34,7 @@ def producer():
 
 @pytest.fixture(scope='session')
 def orderly_producer():
-    prod = Producer('testGroup', True)
+    prod = Producer('orderly_producer_group', True)
     prod.set_namesrv_addr(name_srv)
     prod.start()
     yield prod
@@ -42,7 +42,7 @@ def orderly_producer():
 
 @pytest.fixture(scope='function')
 def push_consumer():
-    consumer = PushConsumer('testGroup')
+    consumer = PushConsumer('push_consumer_group')
     consumer.set_namesrv_addr(name_srv)
     yield consumer
     consumer.shutdown()

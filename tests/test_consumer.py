@@ -18,10 +18,9 @@
 # under the License.
 import time
 import threading
-
 import pytest
 
-from rocketmq.client import Message, SendStatus, ConsumeStatus
+from rocketmq.client import Message, SendStatus, ConsumeStatus, PushConsumer
 from rocketmq.exceptions import PushConsumerStartFailed
 from rocketmq.consts import MessageProperty
 from rocketmq.client import PushConsumer
