@@ -17,7 +17,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
+                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
                 junit '*.xml'
                 sh 'codecov'
             }
@@ -30,7 +30,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
+                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
                 junit '*.xml'
                 sh 'codecov'
             }
@@ -48,15 +48,15 @@ pipeline {
                 sh 'codecov'
             }
         }
-        stage('Centos6 - Python 2'){
+        stage('Centos7 - Python 3'){
             agent {
                 dockerfile {
-                    filename 'Dockerfile.centos6.python2'
+                    filename 'Dockerfile.centos7.python3'
                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
                 }
             }
             steps {
-                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
+                sh 'python -m pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
                 junit '*.xml'
                 sh 'codecov'
             }
