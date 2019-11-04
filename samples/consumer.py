@@ -21,6 +21,8 @@ from rocketmq.client import PushConsumer, ConsumeStatus
 import time
 import os
 
+name_srv = os.getenv('NAMESRV_ADDR', 'localhost:9876')
+
 def callback(msg):
     print(msg.id, msg.body)
     return ConsumeStatus.CONSUME_SUCCESS
