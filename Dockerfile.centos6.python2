@@ -24,6 +24,9 @@ COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
 
-RUN pip install setuptools -U && \
+
+
+RUN rpm -ivh https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/RHEL6/cgo/t-rocketmq-2.0.0-centos6.x86_64.rpm && \
+    pip install setuptools -U && \
     python setup.py install && \
     pip install pytest pytest-timeout pytest-cov codecov
