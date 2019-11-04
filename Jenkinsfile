@@ -17,7 +17,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
+                sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
                 junit '*.xml'
                 sh 'codecov'
             }
@@ -30,7 +30,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pytest --cov=rocketmq -v tests/test_producer.py --junitxml=./test_output.xml'
+                sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
                 junit '*.xml'
                 sh 'codecov'
             }
