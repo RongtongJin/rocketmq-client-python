@@ -16,7 +16,9 @@
 #
 FROM python:3.8.0-buster
 
-RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
+    wget https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/debian/cgo/rocketmq_2.0.0_amd64.deb && \
+    dpkg -i rocketmq_2.0.0_amd64.deb
 
 COPY . rocketmq-client-python
 
