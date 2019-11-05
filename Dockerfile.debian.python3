@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM python:3.8.0-buster
+FROM python:3.7.5-buster
 
 RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
     wget https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/debian/cgo/rocketmq_2.0.0_amd64.deb && \
