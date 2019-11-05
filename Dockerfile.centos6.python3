@@ -21,7 +21,7 @@ RUN yum -y groupinstall "Development tools" && \
 
 RUN curl -Lks http://www.hop5.in/yum/el6/hop5.repo > /etc/yum.repos.d/hop5.repo && \
     yum install gcc gcc-g++ -y && \
-    yum update
+    yum update -y
 
 RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
     tar -xvJf Python-3.6.3.tar.xz && \
