@@ -16,8 +16,8 @@ RUN yum install openssl-devel bzip2-devel wget -y && \
     cd ..
 
 RUN pip install --upgrade pip && \
-    pip install setuptools -U && \
-    pip install pytest pytest-timeout pytest-cov codecov
+    pip install pytest pytest-timeout pytest-cov codecov && \
+    pip install setuptools -U
 
 COPY . rocketmq-client-python
 
