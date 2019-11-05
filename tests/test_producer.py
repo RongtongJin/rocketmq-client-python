@@ -64,7 +64,7 @@ def test_transaction_producer():
     producer = TransactionMQProducer('transactionTestGroup' + str(PY_VERSION), on_check)
     producer.set_namesrv_addr(name_srv)
     producer.start()
-    msg = Message('test')
+    msg = Message('transaction_test')
     msg.set_keys('transaction')
     msg.set_tags('XXX')
     msg.set_body(msg_body)

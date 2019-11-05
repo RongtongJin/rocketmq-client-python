@@ -27,7 +27,7 @@ from rocketmq.client import PushConsumer
 
 
 def _send_test_msg(producer):
-    msg = Message('test')
+    msg = Message('test_consumer')
     msg.set_keys('XXX')
     msg.set_tags('XXX')
     msg.set_body('XXXX')
@@ -57,7 +57,7 @@ def test_push_consumer(producer, push_consumer):
             errors.append(exc)
             return ConsumeStatus.RECONSUME_LATER
 
-    push_consumer.subscribe('test', on_message)
+    push_consumer.subscribe('test_consumer', on_message)
     push_consumer.start()
     while not stop_event.is_set():
         time.sleep(2)
@@ -84,7 +84,7 @@ def test_push_consumer_reconsume_later(producer, push_consumer):
             errors.append(exc)
             return ConsumeStatus.CONSUME_SUCCESS
 
-    push_consumer.subscribe('test', on_message)
+    push_consumer.subscribe('test_consumer', on_message)
     push_consumer.start()
     while not stop_event.is_set():
         time.sleep(2)
