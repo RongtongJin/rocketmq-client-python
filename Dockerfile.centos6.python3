@@ -1,13 +1,13 @@
 FROM centos:6
 
-RUN yum -y groupinstall "Development tools" && \
-    yum -y install wget zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
-
 RUN curl -Lks http://www.hop5.in/yum/el6/hop5.repo > /etc/yum.repos.d/hop5.repo && \
     yum install gcc gcc-g++ -y && \
-    yum update -y
+    yum -y update && yum clean all && \
+    mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
 
-RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
+RUN yum -y groupinstall "Development tools" && \
+    yum -y install wget zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel && \
+    wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
     tar -xvJf Python-3.6.3.tar.xz && \
     mkdir /usr/local/python3 && \
     cd Python-3.6.3 && \
