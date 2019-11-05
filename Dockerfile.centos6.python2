@@ -13,6 +13,8 @@ RUN yum install openssl-devel bzip2-devel wget -y && \
     make altinstall && \
     curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
     python2.7 get-pip.py && \
+    ln -s -f /usr/local/bin/python2.7 /usr/bin/python && \
+    ln -s -f /usr/local/bin/pip2.7  /usr/bin/pip && \
     cd ..
 
 RUN pip install --upgrade pip && \
