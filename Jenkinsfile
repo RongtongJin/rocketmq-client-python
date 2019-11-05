@@ -74,23 +74,10 @@ pipeline {
 //                 sh 'python -m codecov'
 //             }
 //         }
-//         stage('Centos6 - Python 3'){
-//             agent {
-//                 dockerfile {
-//                     filename 'Dockerfile.centos6.python3'
-//                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
-//                 }
-//             }
-//             steps {
-//                 sh 'python -m pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
-//                 junit '*.xml'
-//                 sh 'python -m codecov'
-//             }
-//         }
-        stage('Ubuntu - Python 3'){
+        stage('Centos6 - Python 3'){
             agent {
                 dockerfile {
-                    filename 'Dockerfile.ubuntu.python3'
+                    filename 'Dockerfile.centos6.python3'
                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
                 }
             }
@@ -100,6 +87,32 @@ pipeline {
                 sh 'python -m codecov'
             }
         }
+//         stage('Ubuntu - Python 3'){
+//             agent {
+//                 dockerfile {
+//                     filename 'Dockerfile.ubuntu.python3'
+//                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
+//                 }
+//             }
+//             steps {
+//                 sh 'python -m pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
+//                 junit '*.xml'
+//                 sh 'python -m codecov'
+//             }
+//         }
+//         stage('Ubuntu - Python 3'){
+//             agent {
+//                 dockerfile {
+//                     filename 'Dockerfile.ubuntu.python3'
+//                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
+//                 }
+//             }
+//             steps {
+//                 sh 'python -m pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
+//                 junit '*.xml'
+//                 sh 'python -m codecov'
+//             }
+//         }
     }
     post {
         always {
