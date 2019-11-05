@@ -22,19 +22,19 @@ pipeline {
                 sh 'codecov'
             }
         }
-        stage('Debian - Python 3'){
-            agent {
-                dockerfile {
-                    filename 'Dockerfile.debian.python3'
-                    args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
-                }
-            }
-            steps {
-                sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
-                junit '*.xml'
-                sh 'codecov'
-            }
-        }
+//         stage('Debian - Python 3'){
+//             agent {
+//                 dockerfile {
+//                     filename 'Dockerfile.debian.python3'
+//                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
+//                 }
+//             }
+//             steps {
+//                 sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
+//                 junit '*.xml'
+//                 sh 'codecov'
+//             }
+//         }
         stage('Centos7 - Python 2'){
             agent {
                 dockerfile {
