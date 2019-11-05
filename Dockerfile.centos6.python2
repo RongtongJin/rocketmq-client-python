@@ -1,17 +1,18 @@
 FROM centos:6
 
-RUN yum update -y && \
-    yum install centos-release-scl -y && \
-    yum install python27 -y && \
-    scl enable python27 bash && \
-    cd /opt/rh/python27/root/usr/bin/ && \
-    LD_LIBRARY_PATH=$LD_LIBRARY_PATH ./pip2.7 install requests && \
-    cd /
-
-RUN gcc&& \
+RUN curl -Lks http://www.hop5.in/yum/el6/hop5.repo > /etc/yum.repos.d/hop5.repo && \
     yum install gcc gcc-g++ -y && \
-    yum update -y && \
+    yum -y update && yum clean all && \
     mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+
+RUN yum install openssl-devel bzip2-devel wget && \
+    wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz && \
+    tar xzf Python-2.7.16.tgz && \
+    cd Python-2.7.16 && \
+    ./configure --enable-optimizations && \
+    make altinstall && \
+    curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
+    python2.7 get-pip.py
 
 RUN pip install --upgrade pip && \
     pip install setuptools -U && \
