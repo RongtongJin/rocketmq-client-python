@@ -34,7 +34,7 @@ RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
     cd ..
 
 
-RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python &&
+RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
     pip install --upgrade pip && \
     pip install pytest pytest-timeout pytest-cov codecov
 
