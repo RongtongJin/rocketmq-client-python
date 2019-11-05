@@ -18,14 +18,14 @@ FROM centos:7
 
 RUN yum -y install epel-release && yum -y install python-pip
 
-RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
+    pip install --upgrade pip && \
+    pip install setuptools -U && \
+    pip install pytest pytest-timeout pytest-cov codecov
 
 COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
 
 RUN rpm -ivh https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/RHEL7/cgo/t-rocketmq-2.0.0-centos7.x86_64.rpm && \
-    pip install --upgrade pip && \
-    pip install setuptools -U && \
-    python setup.py install && \
-    pip install pytest pytest-timeout pytest-cov codecov
+    python setup.py install

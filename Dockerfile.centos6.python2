@@ -1,31 +1,26 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one or more
-# contributor license agreements.  See the NOTICE file distributed with
-# this work for additional information regarding copyright ownership.
-# The ASF licenses this file to You under the Apache License, Version 2.0
-# (the "License"); you may not use this file except in compliance with
-# the License.  You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 FROM centos:6
 
-RUN yum -y install epel-release && yum -y install python-pip
+RUN yum update -y && \
+    yum install centos-release-scl -y && \
+    yum install python27 -y && \
+    scl enable python27 bash && \
+    cd /opt/rh/python27/root/usr/bin/ && \
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH ./pip2.7 install requests && \
+    cd /
 
-RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+RUN gcc&& \
+    yum install gcc gcc-g++ -y && \
+    yum update -y && \
+    mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+
+RUN pip install --upgrade pip && \
+    pip install setuptools -U && \
+    pip install pytest pytest-timeout pytest-cov codecov
 
 COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
 
 RUN rpm -ivh https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/RHEL6/cgo/t-rocketmq-2.0.0-centos6.x86_64.rpm && \
-    pip install --upgrade pip && \
-    pip install setuptools -U && \
-    python setup.py install && \
-    pip install pytest pytest-timeout pytest-cov codecov
+    python setup.py install
+

@@ -20,7 +20,8 @@ RUN yum -y groupinstall "Development tools" && \
     yum -y install wget zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
 
 RUN curl -Lks http://www.hop5.in/yum/el6/hop5.repo > /etc/yum.repos.d/hop5.repo && \
-    yum install gcc gcc-g++ -y
+    yum install gcc gcc-g++ -y && \
+    yum update
 
 RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
     tar -xvJf Python-3.6.3.tar.xz && \
@@ -33,13 +34,13 @@ RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz && \
     cd ..
 
 
-RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
+RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python &&
+    pip install --upgrade pip && \
+    pip install pytest pytest-timeout pytest-cov codecov
 
 COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
 
 RUN rpm -ivh https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/RHEL6/cgo/t-rocketmq-2.0.0-centos6.x86_64.rpm && \
-    python setup.py install && \
-    pip install --upgrade pip && \
-    pip install pytest pytest-timeout pytest-cov codecov
+    python setup.py install
