@@ -10,7 +10,7 @@ RUN apt-get update \
 RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
     wget https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/debian/cgo/rocketmq_2.0.0_amd64.deb && \
     dpkg -i rocketmq_2.0.0_amd64.deb && \
-    pip install pytest pytest-timeout pytest-faulthandler pytest-cov codecov
+    python -m pip install pytest pytest-timeout pytest-cov codecov
 
 COPY . rocketmq-client-python
 

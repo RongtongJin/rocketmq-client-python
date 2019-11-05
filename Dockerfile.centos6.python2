@@ -5,14 +5,14 @@ RUN curl -Lks http://www.hop5.in/yum/el6/hop5.repo > /etc/yum.repos.d/hop5.repo 
     yum -y update && yum clean all && \
     mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python
 
-RUN yum install openssl-devel bzip2-devel wget && \
-    wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz && \
-    tar xzf Python-2.7.16.tgz && \
-    cd Python-2.7.16 && \
+RUN yum install openssl-devel bzip2-devel wget -y && \
+    wget https://www.python.org/ftp/python/2.7.5/Python-2.7.5.tgz && \
+    tar xzf Python-2.7.5.tgz && \
+    cd Python-2.7.5 && \
     ./configure --enable-optimizations && \
     make altinstall && \
     curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
-    python2.7 get-pip.py && \vi
+    python2.7 get-pip.py && \
     cd ..
 
 RUN pip install --upgrade pip && \
