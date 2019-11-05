@@ -12,7 +12,8 @@ RUN yum install openssl-devel bzip2-devel wget && \
     ./configure --enable-optimizations && \
     make altinstall && \
     curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
-    python2.7 get-pip.py
+    python2.7 get-pip.py && \
+    cd ..
 
 RUN pip install --upgrade pip && \
     pip install setuptools -U && \
