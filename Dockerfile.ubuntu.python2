@@ -1,13 +1,20 @@
-FROM carpentryio/ubuntu-python2.7
+FROM ubuntu:18.04
+
+RUN apt-get update \
+  && apt-get install -y python-pip python-dev wget \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python python \
+  && pip install --upgrade pip \
+  && cd /
 
 RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
     wget https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/debian/cgo/rocketmq_2.0.0_amd64.deb && \
     dpkg -i rocketmq_2.0.0_amd64.deb && \
-    pip install pytest pytest-timeout pytest-faulthandler pytest-cov codecov
+    python -m pip install pytest pytest-timeout pytest-cov codecov
 
 COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
 
 RUN python setup.py install && \
-    pip install -e
+    pip install -e .
