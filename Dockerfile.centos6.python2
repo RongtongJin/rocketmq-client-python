@@ -24,5 +24,7 @@ COPY . rocketmq-client-python
 WORKDIR rocketmq-client-python
 
 RUN rpm -ivh https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/RHEL6/cgo/t-rocketmq-2.0.0-centos6.x86_64.rpm && \
+    wget https://bootstrap.pypa.io/ez_setup.py && \
+    python ez_setup.py && \
     python setup.py install
 
