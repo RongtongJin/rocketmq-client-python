@@ -17,8 +17,8 @@
 FROM python:3.7.5-buster
 
 RUN mkdir rocketmq-client-python && chmod -R 777 rocketmq-client-python && \
-    wget https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/debian/cgo/rocketmq_2.0.0_amd64.deb && \
-    dpkg -i rocketmq_2.0.0_amd64.deb && \
+    wget https://github.com/apache/rocketmq-client-cpp/releases/download/2.0.0/rocketmq-client-cpp-2.0.0.amd64.deb && \
+    dpkg -i rocketmq-client-cpp-2.0.0.amd64.deb && \
     pip install pytest pytest-timeout pytest-faulthandler pytest-cov codecov
 
 COPY . rocketmq-client-python

@@ -27,5 +27,5 @@ COPY . rocketmq-client-python
 
 WORKDIR rocketmq-client-python
 
-RUN rpm -ivh https://ons-client-sdk.oss-cn-hangzhou.aliyuncs.com/cpp-rpm/RHEL7/cgo/t-rocketmq-2.0.0-centos7.x86_64.rpm && \
+RUN rpm -ivh https://github.com/apache/rocketmq-client-cpp/releases/download/2.0.0/rocketmq-client-cpp-2.0.0-centos7.x86_64.rpm && \
     python setup.py install
