@@ -9,19 +9,19 @@ pipeline {
                 sh 'docker exec rmqbroker sh ./mqadmin updateTopic -n namesrv:9876 -b localhost:10911 -t test'
             }
         }
-        stage('Debian - Python 2'){
-            agent {
-                dockerfile {
-                    filename 'Dockerfile.debian.python2'
-                    args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
-                }
-            }
-            steps {
-                sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
-                junit '*.xml'
-                sh 'codecov'
-            }
-        }
+//         stage('Debian - Python 2'){
+//             agent {
+//                 dockerfile {
+//                     filename 'Dockerfile.debian.python2'
+//                     args '-u root -e "NAMESRV_ADDR=namesrv:9876" --link rmqnamesrv:namesrv'
+//                 }
+//             }
+//             steps {
+//                 sh 'pytest --cov=rocketmq -v tests --junitxml=./test_output.xml'
+//                 junit '*.xml'
+//                 sh 'codecov'
+//             }
+//         }
         stage('Debian - Python 3'){
             agent {
                 dockerfile {
